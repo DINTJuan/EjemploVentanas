@@ -6,9 +6,13 @@
         xmlns:local="clr-namespace:EjemploVentanas"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <TabControl>
-        <TabItem Header="UC1">
-            <local:UserControl1></local:UserControl1>
-        </TabItem>
-    </TabControl>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Button Command="{Binding Path=UC1Command}" Margin="5">UC1</Button>
+            <Button Command="{Binding Path=UC2Command}" Margin="5">UC2</Button>
+        </StackPanel>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="10">
+            <ContentControl Content="{Binding Path=ContenidoVentana}"></ContentControl>
+        </Border>
+    </DockPanel>
 </Window>
