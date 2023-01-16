@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EjemploVentanas
 {
-    class UserControl2VM : ObservableObject
+    class UserControl2VM : ObservableRecipient
     {
         private string mensaje;
 
@@ -19,7 +20,13 @@ namespace EjemploVentanas
 
         public UserControl2VM()
         {
-            Mensaje = "Soy el mensaje 2 !!!";
+            Mensaje = WeakReferenceMessenger.Default.Send<TextoInicialRequestMessage>();
+
+            WeakReferenceMessenger.Default.Register<TextoNuevoValueChangedMessage>
+                (this, (r, m) =>
+                {
+                    Mensaje = m.Value;
+                });
         }
     }
 }

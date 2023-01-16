@@ -82,6 +82,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ServicioNavegacion.cs" />
+    <Compile Include="TextoInicialRequestMessage.cs" />
+    <Compile Include="TextoNuevoValueChangedMessage.cs" />
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>

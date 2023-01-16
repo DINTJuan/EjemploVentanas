@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace EjemploVentanas
 
         public RelayCommand UC1Command { get; }
         public RelayCommand UC2Command { get; }
+        public RelayCommand CambiarTextoCommand { get; }
         private UserControl contenidoVentana;
 
         public UserControl ContenidoVentana
@@ -29,8 +31,15 @@ namespace EjemploVentanas
             AbrirHijaCommand = new RelayCommand(AbrirHija);
             UC1Command = new RelayCommand(AbrirUC1);
             UC2Command = new RelayCommand(AbrirUC2);
-            
+            CambiarTextoCommand = new RelayCommand(CambiarTexto);
+
             navegacion = new ServicioNavegacion();
+
+            WeakReferenceMessenger.Default.Register<MainWindowsVM, TextoInicialRequestMessage>
+                (this, (r, m) =>
+                {
+                    m.Reply("Que la fuerza te acompañe");
+                });
         }
 
         public void AbrirHija()
@@ -46,6 +55,11 @@ namespace EjemploVentanas
         public void AbrirUC2()
         {
             ContenidoVentana = navegacion.ObtenerUC2();
+        }
+
+        public void CambiarTexto()
+        {
+            WeakReferenceMessenger.Default.Send(new TextoNuevoValueChangedMessage("Este es el camino"));
         }
     }
 }
